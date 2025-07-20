@@ -3,33 +3,26 @@ import React from 'react';
 const ArtistsPage = () => {
   const artists = [
     {
-      name: 'Marcus Rodriguez',
+      name: 'Marc Patino',
       style: 'Black & Grey Realism',
       experience: '12 Years Experience',
       description: 'Specializing in photorealistic portraits and detailed black and grey work.',
       tags: ['Portraits', 'Realism', 'Black & Grey', 'Fine Line'],
     },
     {
-      name: 'Sarah Chen',
+      name: 'Tatiana Rodriguez',
       style: 'Traditional & Neo-Traditional',
       experience: '8 Years Experience',
       description: 'Master of bold lines and vibrant colors in traditional American style.',
       tags: ['Traditional', 'Neo-Traditional', 'Color Work', 'Bold Lines'],
     },
     {
-      name: 'Diego Morales',
+      name: 'NightOne',
       style: 'Japanese & Oriental',
       experience: '15 Years Experience',
       description: 'Expert in traditional Japanese tattooing techniques and cultural symbolism.',
       tags: ['Japanese', 'Oriental', 'Large Scale'],
-    },
-    {
-      name: 'Alex Thompson',
-      style: 'Geometric & Dotwork',
-      experience: '6 Years Experience',
-      description: 'Creating intricate geometric patterns and precise dotwork mandala designs.',
-      tags: ['Geometric', 'Dotwork', 'Mandala'],
-    },
+    },    
   ];
 
   return (
