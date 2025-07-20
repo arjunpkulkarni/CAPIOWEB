@@ -1,36 +1,57 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Instagram, Youtube } from 'lucide-react';
+import { Instagram } from 'lucide-react';
 
 const Header = () => (
-  <header className="fixed top-0 left-0 right-0 z-50 bg-black/50 text-white backdrop-blur-lg">
-    <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
-      {/* Logo + tagline */}
-      <Link href="/" className="flex items-center gap-3">
-        <Image src="/logo.png" alt="Capio Tattoo Logo" width={40} height={40} className="rounded-full" />
+  <header className="fixed top-0 left-0 right-0 z-50 bg-black/70 backdrop-blur-md border-b border-gray-800 text-white">
+    <div className="relative mx-auto flex max-w-7xl items-center justify-between px-6 py-3">
+      {/* Logo + Tagline */}
+      <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
+        <Image
+          src="/logo.png"
+          alt="Capio Tattoo Logo"
+          width={40}
+          height={40}
+          className="rounded-full"
+        />
         <div className="leading-none">
-          <h1 className="text-sm font-extrabold tracking-wider">CAPIO TATTOO</h1>
-          <p className="text-[10px] font-medium text-gray-300">YOUR&nbsp;SKIN,&nbsp;OUR&nbsp;ART</p>
+          <h1 className="text-base font-extrabold tracking-widest uppercase">CAPIO TATTOO</h1>
+          <p className="text-[10px] font-medium text-gray-400 uppercase">YOUR SKIN, OUR ART</p>
         </div>
       </Link>
 
-      {/* Desktop navigation */}
-      <nav className="hidden items-center gap-6 md:flex">
-        <Link href="/" className="nav-link">HOME</Link>        
-        <Link href="/our-artists" className="nav-link">ARTISTS</Link>
-        <Link href="/booking" className="nav-link">BOOKING</Link>
-        <Link href="/terms-and-conditions" className="nav-link">TERMS &amp; CONDITIONS</Link>
+      {/* Desktop Navigation */}
+      <nav className="hidden md:flex absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 items-center gap-8">
+        {['HOME', 'ARTISTS', 'BOOKING', 'TERMS & CONDITIONS'].map((label) => (
+          <Link
+            key={label}
+            href={
+              label === 'HOME'
+                ? '/'
+                : '/' +
+                  label
+                    .toLowerCase()
+                    .replace(/ & /g, '-and-')
+                    .replace(/ /g, '-')
+            }
+            className="text-sm font-medium text-gray-300 uppercase tracking-wide hover:text-cyan-400 transition-colors"
+          >
+            {label}
+          </Link>
+        ))}
       </nav>
 
-      {/* Social icons */}
+      {/* Social Icons */}
       <div className="flex items-center gap-4">
-        <a href="#" aria-label="Instagram" className="social-link">
+        <a
+          href="#"
+          aria-label="Instagram"
+          className="text-gray-300 hover:text-cyan-400 transition-colors"
+        >
           <Instagram size={22} />
         </a>
-        <a href="#" aria-label="YouTube" className="social-link">
-          <Youtube size={22} />
-        </a>
+        
       </div>
     </div>
   </header>
