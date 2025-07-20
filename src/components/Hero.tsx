@@ -1,4 +1,6 @@
+'use client';
 import React from 'react';
+import { motion } from 'framer-motion';
 
 const Hero = () => {
   return (
@@ -19,21 +21,34 @@ const Hero = () => {
       <div className="absolute inset-0 bg-black/50 backdrop-blur-xs" />
 
       {/* Foreground content */}
-      <div className="relative z-10 text-center px-4 text-white drop-shadow-lg">
-        <h1 className="text-4xl md:text-6xl font-extrabold leading-tight tracking-tight">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: 'easeOut' }}
+        className="relative z-10 text-center px-4 text-white drop-shadow-lg"
+      >
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
+          className="text-4xl md:text-6xl font-extrabold leading-tight tracking-tight"
+        >
           Experience Elite Tattoo <br />
           Artistry in{' '}
           <span className="inline-block text-cyan-400 border-2 border-cyan-400 rounded-full px-4 py-1">
             Westchester
           </span>
-        </h1>
+        </motion.h1>
 
-       
-
-        <button className="mt-4 inline-block bg-cyan-400/90 hover:bg-cyan-300 mt-10 text-black font-semibold py-3 px-8 rounded-lg transition-colors duration-200">
+        <motion.button
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4, ease: 'easeOut' }}
+          className="mt-4 inline-block bg-cyan-400/90 hover:bg-cyan-300 mt-10 text-black font-semibold py-3 px-8 rounded-lg transition-colors duration-200"
+        >
           VIEW PORTFOLIO
-        </button>
-      </div>
+        </motion.button>
+      </motion.div>
     </section>
   );
 };

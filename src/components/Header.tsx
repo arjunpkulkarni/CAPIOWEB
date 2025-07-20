@@ -45,7 +45,9 @@ const Header = () => (
       {/* Social Icons */}
       <div className="flex items-center gap-4">
         <a
-          href="#"
+          href="https://www.instagram.com/capiotattoostudio"
+          target="_blank"
+          rel="noopener noreferrer"
           aria-label="Instagram"
           className="text-gray-300 hover:text-cyan-400 transition-colors"
         >
