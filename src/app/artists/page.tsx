@@ -56,7 +56,7 @@ const ArtistsPage = () => {
                   alt={artist.name}
                   width={200}
                   height={200}
-                  className="rounded-full border-4 border-cyan-400 object-cover"
+                  className="h-[200px] w-[200px] rounded-full border-4 border-cyan-400 object-cover"
                 />
                 <h2 className="mt-4 text-2xl font-semibold text-white">{artist.name}</h2>
                 <p className="mt-1 text-sm text-cyan-300">{artist.style}</p>
