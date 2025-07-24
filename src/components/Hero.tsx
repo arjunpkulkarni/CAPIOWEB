@@ -1,6 +1,8 @@
 'use client';
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Instagram } from 'lucide-react';
+import Link from 'next/link';
 
 const Hero = () => {
   return (
@@ -40,15 +42,39 @@ const Hero = () => {
           </span>
         </motion.h1>
 
-        <motion.button
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4, ease: 'easeOut' }}
-          className="mt-4 inline-block bg-amber-400/90 hover:bg-amber-300 mt-10 text-black font-heraldic text-xl py-3 px-10 rounded-lg transition-colors duration-200 tracking-wider"
-        >
-          VIEW PORTFOLIO
-        </motion.button>
+        <Link href="/portfolio">
+          <motion.button
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4, ease: 'easeOut' }}
+            className="mt-4 inline-block bg-amber-400/90 hover:bg-amber-300 mt-10 text-black font-heraldic text-xl py-3 px-10 rounded-lg transition-colors duration-200 tracking-wider"
+          >
+            VIEW PORTFOLIO
+          </motion.button>
+        </Link>
       </motion.div>
+
+      <motion.a
+        href="https://www.instagram.com/capiotattoostudio"
+        target="_blank"
+        rel="noopener noreferrer"
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{
+          delay: 1.5,
+          duration: 0.5,
+          type: 'spring',
+          stiffness: 120,
+        }}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.95 }}
+        className="absolute top-28 right-8 z-20 flex items-center gap-3 rounded-full bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-3 text-white shadow-lg"
+      >
+        <Instagram className="h-7 w-7" />
+        <span className="font-luxury text-md font-semibold tracking-wider pr-2">
+          Follow for latest deals!
+        </span>
+      </motion.a>
     </section>
   );
 };

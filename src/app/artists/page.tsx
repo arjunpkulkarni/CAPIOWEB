@@ -4,6 +4,12 @@ import Image from 'next/image';
 import patino from '../artists/marc.png';
 import tatiana from '../artists/tati.png';
 import nightone from '../artists/nightone.png';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Our Artists',
+  description: 'Meet the talented tattoo artists at Capio Tattoo. Our team specializes in a variety of styles, from black and grey to fine line and custom designs.',
+};
 
 const ArtistsPage = () => {
   const artists = [

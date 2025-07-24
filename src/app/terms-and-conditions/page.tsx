@@ -1,4 +1,14 @@
 import React from 'react';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Terms & Conditions',
+  description: 'Read the terms and conditions for booking a tattoo or piercing appointment at Capio Tattoo. Please review our policies before your session.',
+  robots: {
+    index: false,
+    follow: true,
+  }
+};
 
 const TermsPage = () => (
   <section className="bg-gradient-to-b from-black via-gray-900 to-black text-white min-h-screen py-24">

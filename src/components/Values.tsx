@@ -3,9 +3,11 @@ import { Star, Shield, Heart } from 'lucide-react';
 
 const Values = () => {
   return (
-    <section className="py-20 bg-black text-white">
-      <div className="container mx-auto px-6">
-        <h2 className="text-4xl font-bold mb-12 text-center">Our Values</h2>
+    <section id="values" className="bg-black py-20 px-4">
+      <div className="container mx-auto text-center">
+        <h2 className="text-4xl font-heraldic text-white mb-12">
+          Our Core Values
+        </h2>
         <div className="grid md:grid-cols-3 gap-12 text-center">
           {/* Excellence */}
           <div>
