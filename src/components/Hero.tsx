@@ -31,11 +31,11 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
-          className="text-4xl md:text-6xl font-extrabold leading-tight tracking-tight"
+          className="text-4xl md:text-6xl font-heraldic leading-tight tracking-tight"
         >
           Experience Elite Tattoo <br />
           Artistry in{' '}
-          <span className="inline-block text-cyan-400 border-2 border-cyan-400 rounded-full px-4 py-1">
+          <span className="inline-block text-amber-400 border-2 border-amber-400 rounded-full px-4 py-1">
             Westchester
           </span>
         </motion.h1>
@@ -44,7 +44,7 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4, ease: 'easeOut' }}
-          className="mt-4 inline-block bg-cyan-400/90 hover:bg-cyan-300 mt-10 text-black font-semibold py-3 px-8 rounded-lg transition-colors duration-200"
+          className="mt-4 inline-block bg-amber-400/90 hover:bg-amber-300 mt-10 text-black font-heraldic text-xl py-3 px-10 rounded-lg transition-colors duration-200 tracking-wider"
         >
           VIEW PORTFOLIO
         </motion.button>

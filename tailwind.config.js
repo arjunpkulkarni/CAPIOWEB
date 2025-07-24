@@ -7,6 +7,10 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        heraldic: ['var(--font-heraldic)'],
+        luxury: ['var(--font-luxury)'],
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
@@ -15,4 +19,4 @@ module.exports = {
     },
   },
   plugins: [],
-} 
+}; 

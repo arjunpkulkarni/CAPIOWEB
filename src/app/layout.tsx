@@ -1,10 +1,18 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import localFont from 'next/font/local';
 import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
-const inter = Inter({ subsets: ['latin'] });
+const heraldic = localFont({
+  src: '../../src/assets/fonts/Heraldic-Shadows.otf',
+  variable: '--font-heraldic',
+});
+
+const luxury = localFont({
+  src: '../../src/assets/fonts/Modern-Luxury.ttf',
+  variable: '--font-luxury',
+});
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -17,11 +25,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
+    <html lang="en" className={`${heraldic.variable} ${luxury.variable}`}>
+      <body>
         <Header />
         {children}
-        
+        <Footer />
       </body>
     </html>
   );

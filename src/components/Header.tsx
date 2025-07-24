@@ -35,7 +35,7 @@ const Header = () => (
                     .replace(/ & /g, '-and-')
                     .replace(/ /g, '-')
             }
-            className="text-sm font-medium text-gray-300 uppercase tracking-wide hover:text-cyan-400 transition-colors"
+            className="text-sm font-medium text-gray-300 uppercase tracking-wide hover:text-amber-400 transition-colors"
           >
             {label}
           </Link>
@@ -49,7 +49,7 @@ const Header = () => (
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Instagram"
-          className="text-gray-300 hover:text-cyan-400 transition-colors"
+          className="text-gray-300 hover:text-amber-400 transition-colors"
         >
           <Instagram size={22} />
         </a>

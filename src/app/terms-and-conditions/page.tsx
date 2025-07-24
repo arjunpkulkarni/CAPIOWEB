@@ -5,7 +5,7 @@ const TermsPage = () => (
     <div className="max-w-4xl mx-auto px-6">
       {/* Header */}
       <header className="text-center mb-12">
-        <h1 className="text-5xl font-extrabold text-cyan-400 tracking-tight">Terms &amp; Conditions</h1>
+        <h1 className="text-5xl font-extrabold text-amber-400 tracking-tight">Terms &amp; Conditions</h1>
         <p className="mt-4 text-lg text-gray-400">
           Please read these terms carefully before booking your appointment.
         </p>
@@ -15,7 +15,7 @@ const TermsPage = () => (
       <div className="space-y-10">
         {/* Age Requirements */}
         <article className="bg-gray-800 bg-opacity-50 backdrop-blur-lg rounded-2xl p-8 shadow-md hover:shadow-lg transition-shadow">
-          <h2 className="text-3xl font-semibold text-cyan-400 mb-4 border-b border-cyan-500 pb-2">
+          <h2 className="text-3xl font-semibold text-amber-400 mb-4 border-b border-amber-500 pb-2">
             Age Requirements
           </h2>
           <ul className="list-inside space-y-3 text-gray-200">
@@ -28,12 +28,13 @@ const TermsPage = () => (
 
         {/* Health & Safety */}
         <article className="bg-gray-800 bg-opacity-50 backdrop-blur-lg rounded-2xl p-8 shadow-md hover:shadow-lg transition-shadow">
-          <h2 className="text-3xl font-semibold text-cyan-400 mb-4 border-b border-cyan-500 pb-2">
+          <h2 className="text-3xl font-semibold text-amber-400 mb-4 border-b border-amber-500 pb-2">
             Health &amp; Safety
           </h2>
           <ul className="list-inside space-y-3 text-gray-200">
             <li>• You must not be under the influence of alcohol or drugs.</li>
             <li>• Inform us of any medical conditions or medications prior to your session.</li>
+            <li>• If you have a major medical condition, please consult with your doctor beforehand.</li>
             <li>• If you have skin conditions, consult your doctor before booking.</li>
             <li>• We use single-use, sterile needles and follow strict sanitization protocols.</li>
             <li>• If you feel unwell on your appointment day, please contact us to reschedule.</li>
@@ -42,7 +43,7 @@ const TermsPage = () => (
 
         {/* Booking & Payment */}
         <article className="bg-gray-800 bg-opacity-50 backdrop-blur-lg rounded-2xl p-8 shadow-md hover:shadow-lg transition-shadow">
-          <h2 className="text-3xl font-semibold text-cyan-400 mb-4 border-b border-cyan-500 pb-2">
+          <h2 className="text-3xl font-semibold text-amber-400 mb-4 border-b border-amber-500 pb-2">
             Booking &amp; Payment
           </h2>
           <ul className="list-inside space-y-3 text-gray-200">
@@ -57,7 +58,7 @@ const TermsPage = () => (
 
       {/* Back to Top Link */}
       <div className="text-center mt-12">
-        <a href="#top" className="text-cyan-400 hover:underline">
+        <a href="#top" className="text-amber-400 hover:underline">
           Back to Top
         </a>
       </div>
