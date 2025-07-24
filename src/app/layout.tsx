@@ -15,6 +15,32 @@ const luxury = localFont({
   variable: '--font-luxury',
 });
 
+const arvo = localFont({
+  src: [
+    {
+      path: '../../src/assets/fonts/Arvo-Regular.ttf',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: '../../src/assets/fonts/Arvo-Italic.ttf',
+      weight: '400',
+      style: 'italic',
+    },
+    {
+      path: '../../src/assets/fonts/Arvo-Bold.ttf',
+      weight: '700',
+      style: 'normal',
+    },
+    {
+      path: '../../src/assets/fonts/Arvo-BoldItalic.ttf',
+      weight: '700',
+      style: 'italic',
+    },
+  ],
+  variable: '--font-arvo',
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL('https://capio.com'),
   title: {
@@ -63,7 +89,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${heraldic.variable} ${luxury.variable}`}>
+    <html lang="en" className={`${heraldic.variable} ${luxury.variable} ${arvo.variable}`}>
       <body>
         <Header />
         {children}

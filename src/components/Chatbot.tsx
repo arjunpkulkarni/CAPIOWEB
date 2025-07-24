@@ -3,6 +3,8 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Bot, X, Send, User } from 'lucide-react';
+import Image from 'next/image';
+import marcPic from '@/app/artists/marc.png';
 
 interface Message {
   text: string;
@@ -78,14 +80,44 @@ const Chatbot = () => {
 
   return (
     <>
-      <div className="fixed bottom-8 right-8 z-50">
+      <div className="fixed bottom-8 right-8 z-50 flex items-center gap-3">
+        <AnimatePresence>
+          {!isOpen && (
+            <motion.div
+              initial={{ opacity: 0, x: 10 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 10 }}
+              transition={{ delay: 2, duration: 0.3, ease: 'easeOut' }}
+              className="bg-gray-800/80 backdrop-blur-md text-white py-2 px-4 rounded-full shadow-lg"
+            >
+              <p className="font-luxury text-sm whitespace-nowrap">
+                Have a question?
+              </p>
+            </motion.div>
+          )}
+        </AnimatePresence>
         <motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           onClick={() => setIsOpen(!isOpen)}
-          className="bg-amber-400 text-black rounded-full p-4 shadow-lg"
+          className="bg-amber-400 text-black rounded-full w-[56px] h-[56px] shadow-lg flex items-center justify-center relative"
         >
-          {isOpen ? <X size={28} /> : <Bot size={28} />}
+          {isOpen ? (
+            <X size={28} />
+          ) : (
+            <>
+              <Image
+                src={marcPic}
+                alt="Chat with Marc"
+                width={56}
+                height={56}
+                className="rounded-full object-cover"
+              />
+              <div className="absolute bottom-0 right-0 bg-gray-800/80 backdrop-blur-sm rounded-full p-1.5 border-2 border-amber-400">
+                <Bot size={16} className="text-amber-400" />
+              </div>
+            </>
+          )}
         </motion.button>
       </div>
 
@@ -119,8 +151,14 @@ const Chatbot = () => {
                     }`}
                   >
                     {msg.sender === 'bot' && (
-                      <div className="bg-amber-400 text-black rounded-full p-2">
-                        <Bot size={20} />
+                      <div className="bg-amber-400 text-black rounded-full w-10 h-10 flex items-center justify-center">
+                        <Image
+                          src={marcPic}
+                          alt="Marc"
+                          width={40}
+                          height={40}
+                          className="rounded-full object-cover"
+                        />
                       </div>
                     )}
                     <div

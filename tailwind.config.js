@@ -10,6 +10,7 @@ module.exports = {
       fontFamily: {
         heraldic: ['var(--font-heraldic)'],
         luxury: ['var(--font-luxury)'],
+        arvo: ['var(--font-arvo)'],
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
