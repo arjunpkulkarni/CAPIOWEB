@@ -46,6 +46,7 @@ const BookingPage = () => {
                 <li>A <strong>$50 non-refundable deposit</strong> is required to book an appointment.</li>
                 <li>You must be 18 or older with a valid government-issued ID.</li>
                 <li>Please arrive well-rested and have a meal before your session.</li>
+                <li>For any questions, please email us at <a href="mailto:capio.tattoo.studio@gmail.com" className="text-amber-400 hover:underline">capio.tattoo.studio@gmail.com</a>.</li>
               </ul>
             </div>
           </div>
