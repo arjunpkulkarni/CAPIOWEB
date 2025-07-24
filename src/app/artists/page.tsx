@@ -11,7 +11,7 @@ const ArtistsPage = () => {
       style: 'Black & Grey Realism',
       experience: '12 Years Experience',
       description: 'Specializing in photorealistic portraits and detailed black and grey work.',
-      tags: ['Portraits', 'Realism', 'Black & Grey', 'Fine Line'],
+      tags: ['Black & Grey', 'Realism'],
       image: patino,
     },
     {
@@ -19,7 +19,7 @@ const ArtistsPage = () => {
       style: 'Traditional & Neo-Traditional',
       experience: '8 Years Experience',
       description: 'Master of bold lines and vibrant colors in traditional American style.',
-      tags: ['Traditional', 'Neo-Traditional', 'Color Work'],
+      tags: ['Black & Grey Realism', 'Traditional', 'Neo-Traditional', 'Fine Line'],
       image: tatiana,
     },
     {
@@ -27,7 +27,7 @@ const ArtistsPage = () => {
       style: 'Japanese & Oriental',
       experience: '15 Years Experience',
       description: 'Expert in traditional Japanese tattooing techniques and cultural symbolism.',
-      tags: ['Japanese', 'Oriental', 'Large Scale'],
+      tags: ['Color', 'Japanese-Traditional', 'Anime'],
       image: nightone,
     },    
   ];
