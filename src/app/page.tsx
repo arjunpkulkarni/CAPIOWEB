@@ -5,7 +5,7 @@ import Values from "@/components/Values";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: 'Home',
+  title: 'Capio Tattoo Studio',
   description: 'Experience the best tattoo and piercing services in Westchester, NY. Capio Tattoo offers custom designs from award-winning artists in a state-of-the-art studio.',
 };
 

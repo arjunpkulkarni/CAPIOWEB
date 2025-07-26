@@ -48,6 +48,9 @@ export const metadata: Metadata = {
     template: '%s | Capio Tattoo',
   },
   description: 'Discover premier tattoo and piercing services at Capio Tattoo in Westchester, NY. Our award-winning artists specialize in custom designs, black and grey, and fine line tattoos.',
+  icons: {
+    icon: '/logo.png',
+  },
   openGraph: {
     title: 'Capio Tattoo - Westchester, NY | Premier Tattoo & Piercing Studio',
     description: 'Discover premier tattoo and piercing services at Capio Tattoo in Westchester, NY. Our award-winning artists specialize in custom designs, black and grey, and fine line tattoos.',
