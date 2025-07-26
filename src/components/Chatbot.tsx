@@ -112,10 +112,7 @@ const Chatbot = () => {
                 width={56}
                 height={56}
                 className="rounded-full object-cover"
-              />
-              <div className="absolute bottom-0 right-0 bg-gray-800/80 backdrop-blur-sm rounded-full p-1.5 border-2 border-amber-400">
-                <Bot size={16} className="text-amber-400" />
-              </div>
+              />              
             </>
           )}
         </motion.button>

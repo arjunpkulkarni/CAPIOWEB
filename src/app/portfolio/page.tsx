@@ -4,18 +4,17 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
+import image1 from '../portfolio/pictures/1.png';
+import image2 from '../portfolio/pictures/2.png';
+import image3 from '../portfolio/pictures/3.png';
+import image4 from '../portfolio/pictures/4.png';
 
-const portfolioImages = [
-  { src: '/tattoo1.jpg', alt: 'Abstract black and grey tattoo' },
-  { src: '/tattoo2.jpg', alt: 'Fine line floral tattoo' },
-  { src: '/tattoo3.jpg', alt: 'Geometric sleeve tattoo' },
-  { src: '/tattoo4.jpg', alt: 'Detailed portrait tattoo' },
-];
+const portfolioImages = [image1, image2, image3, image4];
 
 const PortfolioPage = () => {
   return (
     <div className="bg-black min-h-screen text-white">
-      <main className="container mx-auto py-20 px-4">
+      <main className="container mx-auto py-20 px-4 mt-10">
         <div className="flex justify-between items-center mb-12">
           <Link
             href="/"
@@ -24,7 +23,7 @@ const PortfolioPage = () => {
             <ArrowLeft size={20} />
             Back to Home
           </Link>
-          <h1 className="text-5xl font-heraldic text-center text-white drop-shadow-lg">
+          <h1 className="text-5xl font-heraldic text-center text-white drop-shadow-lg ">
             Our Portfolio
           </h1>
           <div className="w-24"></div>
@@ -40,7 +39,7 @@ const PortfolioPage = () => {
               },
             },
           }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"
         >
           {portfolioImages.map((image, index) => (
             <motion.div
@@ -50,21 +49,15 @@ const PortfolioPage = () => {
                 visible: { opacity: 1, y: 0 },
               }}
               transition={{ duration: 0.5, ease: 'easeOut' }}
-              className="relative w-full h-[60vh] overflow-hidden rounded-lg shadow-xl group"
+              className="relative w-full h-[45vh] overflow-hidden rounded-lg shadow-xl"
             >
               <Image
-                src={image.src}
-                alt={image.alt}
+                src={image}
+                alt=""
                 layout="fill"
                 objectFit="cover"
-                className="transition-transform duration-500 ease-in-out group-hover:scale-110"
+                className="transition-transform duration-500 ease-in-out"
               />
-              <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors" />
-              <div className="absolute bottom-0 left-0 p-4">
-                <p className="text-white font-luxury text-lg tracking-wider drop-shadow-md">
-                  {image.alt}
-                </p>
-              </div>
             </motion.div>
           ))}
         </motion.div>
