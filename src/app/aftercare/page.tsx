@@ -32,7 +32,7 @@ const AftercarePage = () => (
               <li>• Avoid soaking in baths, pools, or hot tubs for at least two weeks.</li>
               <li>• Keep the tattoo out of direct sunlight and avoid tanning beds.</li>
               <li>• Do not pick or scratch at the scabs that may form.</li>
-              <li>• For more detailed information, visit <a href="https://www.healthline.com/health/tattoo-aftercare" target="_blank" rel="noopener noreferrer" className="text-amber-400 hover:underline">Healthline's Tattoo Aftercare Guide</a>.</li>
+              <li>• For more detailed information, visit <a href="https://www.healthline.com/health/tattoo-aftercare" target="_blank" rel="noopener noreferrer" className="text-amber-400 hover:underline">Healthline&apos;s Tattoo Aftercare Guide</a>.</li>
             </ul>
           </article>
   

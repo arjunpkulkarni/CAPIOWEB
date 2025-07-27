@@ -16,7 +16,7 @@ const BookingPage = () => {
             Book Your Session
           </h1>
           <p className="mt-4 text-lg text-gray-400 max-w-2xl mx-auto">
-            Ready to start your tattoo journey? Fill out the form below and we'll
+            Ready to start your tattoo journey? Fill out the form below and we&apos;ll
             contact you within 24 hours to schedule your consultation.
           </p>
         </header>
@@ -33,9 +33,9 @@ const BookingPage = () => {
               </h3>
               <ol className="list-decimal list-inside space-y-3 text-gray-300">
                 <li><strong>Submit Your Idea:</strong> Fill out the consultation form with as much detail as possible.</li>
-                <li><strong>Consultation:</strong> We'll review your submission and contact you to discuss the design, pricing, and scheduling.</li>
+                <li><strong>Consultation:</strong> We&apos;ll review your submission and contact you to discuss the design, pricing, and scheduling.</li>
                 <li><strong>Deposit:</strong> A deposit is required to secure your appointment date.</li>
-                <li><strong>Design Finalization:</strong> We'll finalize the design and schedule your tattoo session.</li>
+                <li><strong>Design Finalization:</strong> We&apos;ll finalize the design and schedule your tattoo session.</li>
               </ol>
             </div>
             <div className="bg-gray-800 bg-opacity-50 backdrop-blur-lg rounded-2xl p-8 shadow-md">
