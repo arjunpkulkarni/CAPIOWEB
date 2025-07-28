@@ -23,7 +23,7 @@ import image16 from '../portfolio/pictures/16.png';
 import image17 from '../portfolio/pictures/17.png';
 import image18 from '../portfolio/pictures/18.png';
 
-const portfolioImages = [image1, image2, image3, image4, image5, image6, image7, image8, image9, image10, image11, image12, image13, image14, image15, image16, image17, image18, image19];
+const portfolioImages = [image1, image2, image3, image4, image5, image6, image7, image8, image9, image10, image11, image12, image13, image14, image15, image16, image17, image18];
 
 const PortfolioPage = () => {
   return (

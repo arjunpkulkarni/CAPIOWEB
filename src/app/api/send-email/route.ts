@@ -8,6 +8,9 @@ interface Attachment {
 
 // Initialize Resend with your API key
 const resend = new Resend(process.env.RESEND_API_KEY || 're_dj66UL7t_EtWeuJptqJCH1LqGYgezaRrQ');
+const toEmail = process.env.TO_EMAIL || 'capio.tattoo.studio@gmail.com';
+const fromEmail = process.env.FROM_EMAIL || 'onboarding@resend.dev';
+
 
 export async function POST(req: NextRequest) {
   try {
@@ -32,10 +35,13 @@ export async function POST(req: NextRequest) {
         }));
     }
 
+    console.log(`Sending email to ${toEmail} from ${fromEmail}`);
+
     const { data, error } = await resend.emails.send({
-      from: 'onboarding@resend.dev', // Must be a verified domain on Resend
-      to: 'capio.tattoo.studio@gmail.com', // Your email address
+      from: fromEmail,
+      to: toEmail,
       subject: `New Tattoo Inquiry from ${name}`,
+      replyTo: email,
       html: `
         <h1>New Tattoo Inquiry</h1>
         <p><strong>Name:</strong> ${name}</p>
@@ -50,11 +56,14 @@ export async function POST(req: NextRequest) {
     });
 
     if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 });
+      console.error('Resend error:', error);
+      return NextResponse.json({ error: 'Error sending email', details: error }, { status: 500 });
     }
 
+    console.log('Email sent successfully:', data);
     return NextResponse.json({ message: 'Email sent successfully!' });
   } catch (error) {
+    console.error('API route error:', error);
     let errorMessage = 'An unknown error occurred.';
     if (error instanceof Error) {
       errorMessage = error.message;
