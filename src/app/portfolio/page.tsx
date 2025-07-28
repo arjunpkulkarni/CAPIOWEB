@@ -8,8 +8,22 @@ import image1 from '../portfolio/pictures/1.png';
 import image2 from '../portfolio/pictures/2.png';
 import image3 from '../portfolio/pictures/3.png';
 import image4 from '../portfolio/pictures/4.png';
+import image5 from '../portfolio/pictures/5.png';
+import image6 from '../portfolio/pictures/6.png';
+import image7 from '../portfolio/pictures/7.png';
+import image8 from '../portfolio/pictures/8.png';
+import image9 from '../portfolio/pictures/9.png';
+import image10 from '../portfolio/pictures/10.png';
+import image11 from '../portfolio/pictures/11.png';
+import image12 from '../portfolio/pictures/12.png';
+import image13 from '../portfolio/pictures/13.png';
+import image14 from '../portfolio/pictures/14.png';
+import image15 from '../portfolio/pictures/15.png';
+import image16 from '../portfolio/pictures/16.png';
+import image17 from '../portfolio/pictures/17.png';
+import image18 from '../portfolio/pictures/18.png';
 
-const portfolioImages = [image1, image2, image3, image4];
+const portfolioImages = [image1, image2, image3, image4, image5, image6, image7, image8, image9, image10, image11, image12, image13, image14, image15, image16, image17, image18, image19];
 
 const PortfolioPage = () => {
   return (

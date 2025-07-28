@@ -5,10 +5,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Bot, X, Send, User } from 'lucide-react';
 import Image from 'next/image';
 import marcPic from '@/app/artists/marc.png';
+import OpenAI from 'openai';
 
 interface Message {
-  text: string;
-  sender: 'user' | 'bot';
+  role: 'user' | 'assistant' | 'system';
+  content: string;
 }
 
 const Chatbot = () => {
@@ -16,6 +17,11 @@ const Chatbot = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const openai = new OpenAI({
+    apiKey: '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',
+    dangerouslyAllowBrowser: true,
+  });
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -27,55 +33,50 @@ const Chatbot = () => {
     if (isOpen) {
       setMessages([
         {
-          text: "Hi, I'm Marc! I'm here to help with any questions you might have. How can I assist you today?",
-          sender: 'bot',
+          role: 'assistant',
+          content:
+            "Hi, I'm Marc! I'm here to help with any questions you might have. How can I assist you today?",
         },
       ]);
     }
   }, [isOpen]);
 
-  const getBotResponse = (userInput: string): string => {
-    const lowerInput = userInput.toLowerCase();
-
-    if (lowerInput.includes('booking') || lowerInput.includes('appointment')) {
-      return 'You can book an appointment through our booking page. Would you like me to redirect you?';
-    }
-    if (lowerInput.includes('price') || lowerInput.includes('cost')) {
-      return 'Pricing depends on the artist, size, and complexity of the tattoo. For a detailed quote, please fill out the form on our booking page.';
-    }
-    if (lowerInput.includes('hours') || lowerInput.includes('open')) {
-      return 'Our studio is open from 12 PM to 8 PM, Tuesday through Saturday. We are closed on Sundays and Mondays.';
-    }
-    if (lowerInput.includes('location') || lowerInput.includes('address')) {
-      return 'We are located in the heart of Westchester. You can find our exact address on the booking page.';
-    }
-    if (lowerInput.includes('aftercare') || lowerInput.includes('care')) {
-      return 'Proper aftercare is crucial for your new tattoo. We have a dedicated page with detailed instructions. You can find it in the navigation menu.';
-    }
-    if (lowerInput.includes('artists')) {
-      return 'We have several talented artists, including Nightone and Tati. You can view their portfolios on the artists page.';
-    }
-
-    return "I'm sorry, I'm not sure how to help with that. Try asking about booking, prices, hours, or our artists.";
-  };
-
-  const handleSendMessage = (e: React.FormEvent) => {
+  const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!inputValue.trim()) return;
 
-    const userMessage: Message = { text: inputValue, sender: 'user' };
-    setMessages((prev) => [...prev, userMessage]);
-
-    const botResponse: Message = {
-      text: getBotResponse(inputValue),
-      sender: 'bot',
-    };
-
-    setTimeout(() => {
-      setMessages((prev) => [...prev, botResponse]);
-    }, 1000);
-
+    const userMessage: Message = { role: 'user', content: inputValue };
+    const newMessages = [...messages, userMessage];
+    setMessages(newMessages);
     setInputValue('');
+
+    try {
+      const completion = await openai.chat.completions.create({
+        model: 'gpt-3.5-turbo',
+        messages: [
+          {
+            role: 'system',
+            content:
+              'You are a helpful assistant for a tattoo shop. Only answer questions related to tattoos, artists, booking, pricing, and aftercare. If asked about anything else, politely decline.',
+          },
+          ...newMessages.map(({ role, content }) => ({ role, content })),
+        ],
+      });
+
+      const botResponse: Message = {
+        role: 'assistant',
+        content: completion.choices[0].message.content || 'Sorry, something went wrong.',
+      };
+
+      setMessages((prev) => [...prev, botResponse]);
+    } catch (error) {
+      console.error('Error fetching bot response:', error);
+      const errorResponse: Message = {
+        role: 'assistant',
+        content: 'Sorry, I am having trouble connecting. Please try again later.',
+      };
+      setMessages((prev) => [...prev, errorResponse]);
+    }
   };
 
   return (
@@ -144,10 +145,10 @@ const Chatbot = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.1 }}
                     className={`flex items-start gap-3 ${
-                      msg.sender === 'user' ? 'justify-end' : ''
+                      msg.role === 'user' ? 'justify-end' : ''
                     }`}
                   >
-                    {msg.sender === 'bot' && (
+                    {msg.role === 'assistant' && (
                       <div className="bg-amber-400 text-black rounded-full w-10 h-10 flex items-center justify-center">
                         <Image
                           src={marcPic}
@@ -160,14 +161,14 @@ const Chatbot = () => {
                     )}
                     <div
                       className={`max-w-[80%] rounded-2xl p-3 text-white font-luxury ${
-                        msg.sender === 'user'
+                        msg.role === 'user'
                           ? 'bg-gray-700 rounded-br-none'
                           : 'bg-gray-800 rounded-bl-none'
                       }`}
                     >
-                      {msg.text}
+                      {msg.content}
                     </div>
-                     {msg.sender === 'user' && (
+                     {msg.role === 'user' && (
                       <div className="bg-gray-600 text-white rounded-full p-2">
                         <User size={20} />
                       </div>
