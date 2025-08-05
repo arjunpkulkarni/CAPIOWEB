@@ -2,13 +2,12 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Bot, X, Send, User } from 'lucide-react';
+import { X, Send, User } from 'lucide-react';
 import Image from 'next/image';
 import marcPic from '@/app/artists/marc.png';
-import OpenAI from 'openai';
 
 interface Message {
-  role: 'user' | 'assistant' | 'system';
+  role: 'user' | 'assistant';
   content: string;
 }
 
@@ -17,12 +16,6 @@ const Chatbot = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
-
-
-  const openai = new OpenAI({
-    apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
-    dangerouslyAllowBrowser: true,
-  });
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -52,21 +45,22 @@ const Chatbot = () => {
     setInputValue('');
 
     try {
-      const completion = await openai.chat.completions.create({
-        model: 'gpt-3.5-turbo',
-        messages: [
-          {
-            role: 'system',
-            content:
-              'You are a helpful assistant for a tattoo shop. Only answer questions related to tattoos, artists, booking, pricing, and aftercare. If asked about anything else, politely decline.',
-          },
-          ...newMessages.map(({ role, content }) => ({ role, content })),
-        ],
+      const response = await fetch('/api/chatbot', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ messages: newMessages }),
       });
 
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
       const botResponse: Message = {
         role: 'assistant',
-        content: completion.choices[0].message.content || 'Sorry, something went wrong.',
+        content: data.content || 'Sorry, something went wrong.',
       };
 
       setMessages((prev) => [...prev, botResponse]);
@@ -206,4 +200,4 @@ const Chatbot = () => {
   );
 };
 
-export default Chatbot; 
+export default Chatbot;
