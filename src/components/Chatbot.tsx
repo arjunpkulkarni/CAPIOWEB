@@ -18,8 +18,9 @@ const Chatbot = () => {
   const [inputValue, setInputValue] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
+
   const openai = new OpenAI({
-    apiKey: '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',
+    apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
     dangerouslyAllowBrowser: true,
   });
 
