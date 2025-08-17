@@ -50,6 +50,8 @@ export const metadata: Metadata = {
   description: 'Discover premier tattoo and piercing services at Capio Tattoo in Westchester, NY. Our award-winning artists specialize in custom designs, black and grey, and fine line tattoos.',
   icons: {
     icon: '/logo.png',
+    shortcut: '/logo.png',
+    apple: '/logo.png',
   },
   openGraph: {
     title: 'Capio Tattoo - Westchester, NY | Premier Tattoo & Piercing Studio',
@@ -95,9 +97,13 @@ export default function RootLayout({
     <html lang="en" className={`${heraldic.variable} ${luxury.variable} ${arvo.variable}`}>
       <body>
         <Header />
-        {children}
-        
-        <Chatbot />
+        <main className="pt-20 md:pt-24">
+          {children}
+        </main>
+        {/* <Footer /> */}
+        <div className="hidden md:block">
+          <Chatbot />
+        </div>
       </body>
     </html>
   );

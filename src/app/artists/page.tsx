@@ -44,7 +44,7 @@ const ArtistsPage = () => {
       <div className="max-w-7xl mx-auto px-6 py-16">
         {/* Header */}
         <header className="text-center mb-12">
-          <h1 className="text-5xl font-heraldic text-amber-400 tracking-tight mt-10">Our Artists</h1>
+          <h1 className="text-3xl md:text-5xl font-heraldic text-amber-400 tracking-tight mt-10">Our Artists</h1>
           <p className="mt-4 text-lg text-gray-400">
             Meet the creative minds behind our ink.
           </p>

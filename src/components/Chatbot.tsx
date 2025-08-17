@@ -1,78 +1,190 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Send, User } from 'lucide-react';
+import { X } from 'lucide-react';
 import Image from 'next/image';
 import marcPic from '@/app/artists/marc.png';
 
-interface Message {
-  role: 'user' | 'assistant';
-  content: string;
+type AnswerMap = Record<string, string>;
+
+const QUESTIONS = [
+  {
+    id: 'interest',
+    text: 'What are you looking for today?',
+    options: ['Tattoo', 'Piercing', 'Cover-Up', 'Re-Work'],
+  },
+  {
+    id: 'style',
+    text: 'What tattoo style are you interested in?',
+    options: [
+      'Black & Grey Realism',
+      'Traditional',
+      'Neo-Traditional',
+      'Japanese / Oriental',
+      'Anime',
+      'Fine Line',
+      'Color Realism',
+    ],
+    dependsOn: { key: 'interest', value: 'Tattoo' },
+  },
+  {
+    id: 'size',
+    text: 'Preferred size?',
+    options: ['Small (<3")', 'Medium (3-6")', 'Large (Sleeve/Back)'],
+    dependsOn: { key: 'interest', value: 'Tattoo' },
+  },
+  {
+    id: 'placement',
+    text: 'Where on your body?',
+    options: ['Arm', 'Leg', 'Back/Chest', 'Hand/Foot', 'Neck/Face', 'Other'],
+    dependsOn: { key: 'interest', value: 'Tattoo' },
+  },
+  {
+    id: 'color',
+    text: 'Color preference?',
+    options: ['Black & Grey', 'Color'],
+    dependsOn: { key: 'interest', value: 'Tattoo' },
+  },
+  {
+    id: 'budget',
+    text: 'Budget range?',
+    options: ['<$200', '$200-$500', '$500-$1000', '$1000+'],
+  },
+  {
+    id: 'timeline',
+    text: 'When would you like to book?',
+    options: ['ASAP (within 2 weeks)', '1-2 months', '3+ months'],
+  },
+  {
+    id: 'reference',
+    text: 'Do you have a reference image ready?',
+    options: ['Yes', 'No'],
+    dependsOn: { key: 'interest', value: 'Tattoo' },
+  },
+  {
+    id: 'artistPreference',
+    text: 'Do you have an artist in mind?',
+    options: ['Marc Patino', 'Tatiana Rodriguez', 'NightOne', 'Not sure'],
+  },
+  {
+    id: 'policy',
+    text: 'Have you reviewed our studio policies?',
+    options: ['Yes', 'Not yet'],
+  },
+];
+
+function chooseRecommendedArtist(answers: AnswerMap): string {
+  const interest = answers['interest'];
+  const style = answers['style'];
+  const userPick = answers['artistPreference'];
+  if (userPick && userPick !== 'Not sure') return userPick;
+  if (interest === 'Piercing') return 'NightOne';
+  if (style === 'Black & Grey Realism') return 'Marc Patino';
+  if (style === 'Traditional' || style === 'Neo-Traditional' || style === 'Fine Line' || interest === 'Re-Work') return 'Tatiana Rodriguez';
+  if (style === 'Japanese / Oriental' || style === 'Anime' || interest === 'Cover-Up' || style === 'Color Realism') return 'NightOne';
+  return 'Marc Patino';
+}
+
+function Recommendation({ answers }: { answers: AnswerMap }) {
+  const artist = chooseRecommendedArtist(answers);
+  const interest = answers['interest'];
+  const timeline = answers['timeline'];
+  const policy = answers['policy'];
+
+  const reasons: string[] = [];
+  if (interest) reasons.push(`Interest: ${interest}`);
+  if (answers['style']) reasons.push(`Style: ${answers['style']}`);
+  if (answers['color']) reasons.push(`Color: ${answers['color']}`);
+  if (answers['size']) reasons.push(`Size: ${answers['size']}`);
+  if (answers['placement']) reasons.push(`Placement: ${answers['placement']}`);
+
+  const cta: { label: string; href: string }[] = [
+    { label: 'View Artists', href: '/artists' },
+    { label: 'View Portfolio', href: '/portfolio' },
+    { label: 'Book Now', href: '/booking' },
+  ];
+  if (policy === 'Not yet') cta.unshift({ label: 'Read Policy', href: '/policy' });
+  if (interest === 'Tattoo') cta.push({ label: 'Aftercare', href: '/aftercare' });
+
+  return (
+    <div className="flex flex-col gap-4">
+      <div className="bg-gray-800/60 rounded-xl p-4">
+        <p className="text-sm text-gray-300">Recommended artist</p>
+        <p className="text-lg font-heraldic text-amber-400">{artist}</p>
+        {reasons.length > 0 && (
+          <ul className="mt-2 text-xs text-gray-400 list-disc list-inside">
+            {reasons.map((r) => (
+              <li key={r}>{r}</li>
+            ))}
+          </ul>
+        )}
+        {timeline && (
+          <p className="mt-2 text-xs text-gray-400">Timeline: {timeline}</p>
+        )}
+      </div>
+      <div className="flex flex-wrap gap-2">
+        {cta.map((item) => (
+          <a
+            key={item.label}
+            href={item.href}
+            className="bg-amber-400 text-black rounded-full px-3 py-2 text-sm hover:bg-amber-300 transition-colors"
+          >
+            {item.label}
+          </a>
+        ))}
+      </div>
+      {/* Selections Summary */}
+      <div className="mt-2 bg-gray-800/40 rounded-xl p-3">
+        <p className="text-sm text-gray-300 mb-2">Your selections</p>
+        <ul className="space-y-1">
+          {QUESTIONS.filter((q) => !q.dependsOn || answers[q.dependsOn.key] === q.dependsOn.value)
+            .map((q) => ({ q: q.text, a: answers[q.id] }))
+            .filter((item) => !!item.a)
+            .map((item) => (
+              <li key={item.q} className="text-xs text-gray-400">
+                <span className="text-gray-300">{item.q}</span>: {item.a}
+              </li>
+            ))}
+        </ul>
+      </div>
+    </div>
+  );
 }
 
 const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [inputValue, setInputValue] = useState('');
-  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [answers, setAnswers] = useState<AnswerMap>({});
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  const visibleQuestions = useMemo(() => {
+    return QUESTIONS.filter((q) => {
+      if (!q.dependsOn) return true;
+      return answers[q.dependsOn.key] === q.dependsOn.value;
+    });
+  }, [answers]);
+
+  const totalSteps = visibleQuestions.length;
+  const isComplete = currentIndex >= totalSteps;
+
+  const handleChoose = (value: string) => {
+    const question = visibleQuestions[currentIndex];
+    if (!question) return;
+    setAnswers((prev) => ({ ...prev, [question.id]: value }));
+    setCurrentIndex((prev) => prev + 1);
   };
 
-  useEffect(scrollToBottom, [messages]);
-
-  useEffect(() => {
-    if (isOpen) {
-      setMessages([
-        {
-          role: 'assistant',
-          content:
-            "Hi, I'm Marc! I'm here to help with any questions you might have. How can I assist you today?",
-        },
-      ]);
-    }
-  }, [isOpen]);
-
-  const handleSendMessage = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!inputValue.trim()) return;
-
-    const userMessage: Message = { role: 'user', content: inputValue };
-    const newMessages = [...messages, userMessage];
-    setMessages(newMessages);
-    setInputValue('');
-
-    try {
-      const response = await fetch('/api/chatbot', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ messages: newMessages }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-
-      const data = await response.json();
-      const botResponse: Message = {
-        role: 'assistant',
-        content: data.content || 'Sorry, something went wrong.',
-      };
-
-      setMessages((prev) => [...prev, botResponse]);
-    } catch (error) {
-      console.error('Error fetching bot response:', error);
-      const errorResponse: Message = {
-        role: 'assistant',
-        content: 'Sorry, I am having trouble connecting. Please try again later.',
-      };
-      setMessages((prev) => [...prev, errorResponse]);
-    }
+  const handleBack = () => {
+    // find the previous question key and remove its answer when stepping back
+    setCurrentIndex((prev) => Math.max(0, prev - 1));
   };
+
+  const handleRestart = () => {
+    setAnswers({});
+    setCurrentIndex(0);
+  };
+
+  const currentQuestion = visibleQuestions[currentIndex];
 
   return (
     <>
@@ -87,7 +199,7 @@ const Chatbot = () => {
               className="bg-gray-800/80 backdrop-blur-md text-white py-2 px-4 rounded-full shadow-lg"
             >
               <p className="font-luxury text-sm whitespace-nowrap">
-                Have a question?
+                Get a quick recommendation
               </p>
             </motion.div>
           )}
@@ -97,6 +209,7 @@ const Chatbot = () => {
           whileTap={{ scale: 0.9 }}
           onClick={() => setIsOpen(!isOpen)}
           className="bg-amber-400 text-black rounded-full w-[56px] h-[56px] shadow-lg flex items-center justify-center relative"
+          aria-label="Open recommendation assistant"
         >
           {isOpen ? (
             <X size={28} />
@@ -104,11 +217,11 @@ const Chatbot = () => {
             <>
               <Image
                 src={marcPic}
-                alt="Chat with Marc"
+                alt="Open assistant"
                 width={56}
                 height={56}
                 className="rounded-full object-cover"
-              />              
+              />
             </>
           )}
         </motion.button>
@@ -123,75 +236,50 @@ const Chatbot = () => {
             transition={{ duration: 0.3, ease: 'easeOut' }}
             className="fixed bottom-24 right-8 w-[calc(100vw-4rem)] max-w-sm h-[70vh] max-h-[600px] bg-gray-900/80 backdrop-blur-md rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-white/10"
           >
-            {/* Header */}
-            <div className="p-4 bg-gray-800/50 border-b border-white/10">
-              <h3 className="font-heraldic text-2xl text-white text-center">
-                Chat with Marc
-              </h3>
-            </div>
-
-            {/* Messages */}
-            <div className="flex-1 p-4 overflow-y-auto">
-              <div className="flex flex-col gap-4">
-                {messages.map((msg, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                    className={`flex items-start gap-3 ${
-                      msg.role === 'user' ? 'justify-end' : ''
-                    }`}
-                  >
-                    {msg.role === 'assistant' && (
-                      <div className="bg-amber-400 text-black rounded-full w-10 h-10 flex items-center justify-center">
-                        <Image
-                          src={marcPic}
-                          alt="Marc"
-                          width={40}
-                          height={40}
-                          className="rounded-full object-cover"
-                        />
-                      </div>
-                    )}
-                    <div
-                      className={`max-w-[80%] rounded-2xl p-3 text-white font-luxury ${
-                        msg.role === 'user'
-                          ? 'bg-gray-700 rounded-br-none'
-                          : 'bg-gray-800 rounded-bl-none'
-                      }`}
-                    >
-                      {msg.content}
-                    </div>
-                     {msg.role === 'user' && (
-                      <div className="bg-gray-600 text-white rounded-full p-2">
-                        <User size={20} />
-                      </div>
-                    )}
-                  </motion.div>
-                ))}
-                <div ref={messagesEndRef} />
+            <div className="p-4 bg-gray-800/50 border-b border-white/10 flex items-center justify-between">
+              <h3 className="font-heraldic text-2xl text-white">Capio Assistant</h3>
+              <div className="text-xs text-gray-300">
+                {isComplete ? 'Done' : `Step ${Math.min(currentIndex + 1, totalSteps)} / ${totalSteps}`}
               </div>
             </div>
 
-            {/* Input */}
-            <div className="p-4 bg-gray-800/50 border-t border-white/10">
-              <form onSubmit={handleSendMessage} className="flex gap-2">
-                <input
-                  type="text"
-                  value={inputValue}
-                  onChange={(e) => setInputValue(e.target.value)}
-                  placeholder="Ask a question..."
-                  className="flex-1 bg-gray-700 border border-gray-600 rounded-full py-2 px-4 text-white focus:outline-none focus:ring-2 focus:ring-amber-400 font-luxury"
-                />
+            <div className="flex-1 p-4 overflow-y-auto">
+              {!isComplete && currentQuestion && (
+                <div className="flex flex-col gap-4">
+                  <p className="text-white font-luxury text-lg">{currentQuestion.text}</p>
+                  <div className="flex flex-wrap gap-2">
+                    {currentQuestion.options.map((opt) => (
+                      <button
+                        key={opt}
+                        onClick={() => handleChoose(opt)}
+                        className="bg-gray-800 hover:bg-gray-700 text-white rounded-full px-4 py-2 text-sm border border-white/10"
+                      >
+                        {opt}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {isComplete && <Recommendation answers={answers} />}
+            </div>
+
+            <div className="p-4 bg-gray-800/50 border-t border-white/10 flex items-center justify-between">
+              <button
+                onClick={handleRestart}
+                className="text-xs text-gray-300 hover:text-white underline"
+              >
+                Restart
+              </button>
+              <div className="flex items-center gap-2">
                 <button
-                  type="submit"
-                  className="bg-amber-400 text-black rounded-full p-3 hover:bg-amber-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                  disabled={!inputValue.trim()}
+                  onClick={handleBack}
+                  disabled={currentIndex === 0 || isComplete}
+                  className="text-xs text-gray-300 disabled:opacity-40"
                 >
-                  <Send size={20} />
+                  Back
                 </button>
-              </form>
+              </div>
             </div>
           </motion.div>
         )}

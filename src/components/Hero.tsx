@@ -6,7 +6,7 @@ import Link from 'next/link';
 
 const Hero = () => {
   return (
-    <section className="relative h-screen flex flex-col justify-center items-center overflow-hidden">
+    <section className="relative -mt-20 md:-mt-24 h-full min-h-screen flex flex-col justify-center items-center overflow-hidden">
       {/* Background video */}
       <video
         autoPlay

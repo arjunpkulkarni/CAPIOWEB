@@ -15,7 +15,7 @@ const TermsPage = () => (
     <div className="max-w-4xl mx-auto px-6">
       {/* Header */}
       <header className="text-center mb-12">
-        <h1 className="text-5xl font-extrabold text-amber-400 tracking-tight">Terms &amp; Conditions</h1>
+        <h1 className="text-3xl md:text-5xl font-extrabold text-amber-400 tracking-tight">Terms &amp; Conditions</h1>
         <p className="mt-4 text-lg text-gray-400">
           Please read these terms carefully before booking your appointment.
         </p>

@@ -11,7 +11,7 @@ const BookingPage = () => {
     <section className="bg-gradient-to-b from-black via-gray-900 to-black text-white min-h-screen">
       <div className="max-w-7xl mx-auto px-6 py-16">
         <header className="text-center mb-12">
-          <h1 className="text-5xl font-extrabold text-amber-400 tracking-tight mt-10">
+          <h1 className="text-3xl md:text-5xl font-extrabold text-amber-400 tracking-tight mt-10">
             Book Your Session
           </h1>
           <p className="mt-4 text-lg text-gray-400 max-w-2xl mx-auto">

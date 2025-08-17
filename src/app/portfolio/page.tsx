@@ -39,7 +39,7 @@ const PortfolioPage = () => {
   return (
     <div className="bg-black min-h-screen text-white">
       <main className="container mx-auto py-20 px-4 mt-10">
-        <div className="flex justify-between items-center mb-12">
+        <div className="flex flex-col sm:flex-row gap-4 sm:gap-0 justify-between items-center mb-12">
           <Link
             href="/"
             className="flex items-center gap-2 text-amber-400 hover:text-amber-300 transition-colors font-luxury tracking-wider"
@@ -47,7 +47,7 @@ const PortfolioPage = () => {
             <ArrowLeft size={20} />
             Back to Home
           </Link>
-          <h1 className="text-5xl font-heraldic text-center text-white drop-shadow-lg ">
+          <h1 className="text-3xl md:text-5xl font-heraldic text-center text-white drop-shadow-lg ">
             Our Portfolio
           </h1>
           <div className="w-24"></div>
@@ -73,7 +73,7 @@ const PortfolioPage = () => {
                 visible: { opacity: 1, y: 0 },
               }}
               transition={{ duration: 0.5, ease: 'easeOut' }}
-              className="relative w-full h-[45vh] overflow-hidden rounded-lg shadow-xl"
+              className="relative w-full h-[45vh] sm:h-[40vh] md:h-[35vh] overflow-hidden rounded-lg shadow-xl"
             >
               <Image
                 src={image}
